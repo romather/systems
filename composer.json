@@ -1,0 +1,36 @@
+{
+    "name": "romather/swee",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [{
+        "name": "romather",
+        "email": "daragao689@gmail.com"
+    }],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "classmap-authoritative": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "bramus/monolog-colored-line-formatter": "^3.0",
+        "cakephp/chronos": "^2.0",
+        "hassankhan/config": "^2.2",
+        "illuminate/database": "^8.23",
+        "laminas/laminas-escaper": "^2.7",
+        "laminas/laminas-math": "^2.5",
+        "monolog/monolog": "^2.2",
+        "pecee/simple-router": "4.2.0.6",
+        "php-di/php-di": "^6.3",
+        "riimu/kit-csrf": "^2.4",
+        "symfony/asset": "^5.2",
+        "symfony/yaml": "^5.2",
+        "tracy/tracy": "^2.8",
+        "twig/twig": "^3.2"
+    }
+}

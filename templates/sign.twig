@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="author" content="romather">
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+		{{ csrf_meta_widget() }}
+		<meta name="theme-color" content="#4285f4">
+		<meta name="msapplication-navbutton-color" content="#4285f4">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
+		<title>Swee -
+			{% block title %}{% endblock %}
+		</title>
+		<script src="{{ assets('jquery/jquery.min.js') }}"></script>
+		<script src="{{ assets('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ assets('parsley.js/parsley.min.js') }}"></script>
+		<script src="{{ assets('parsley.js/i18n/pt-br.js') }}"></script>
+		<script src="{{ assets('bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+		<script src="{{ assets('bootstrap-select/js/i18n/defaults-pt_BR.js') }}"></script>
+		<link href="{{ assets('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ assets('bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet">
+		<link href="{{ assets('parsley.js/parsley.css') }}" rel="stylesheet">
+		<link href="{{ assets('fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+		<link href="{{ assets('css/main.css') }}" rel="stylesheet">
+	</head>
+
+	{% block body %}{% endblock %}
+
+</html>
+

@@ -1,0 +1,124 @@
+{% extends "sign.twig" %}
+
+{% block title %}
+    Nova Conta
+{% endblock %}
+
+{% block body %}
+<body class="my-email-page">
+    {% include "nav.twig" %}
+    <br><br><br>
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="card fat">
+                        <div class="card-body">
+                            <h4 class="card-title">Sign Up</h4>
+                            <form method="post" class="my-login-validation" data-parsley-validate="">                                
+                                <input name="check_1" type="hidden" value="">
+                                <input style="position: absolute; width: 1px; top: -5000px; left: -5000px;"
+                                    name="check_2" type="text">
+                                <div class="form-group">
+                                    <label for="sou">Sou/Somos</label>
+                                    <select class="selectpicker" data-width="100%" title="Sou / Somos" name="opcao"
+                                        id="sou">
+                                        <option value="Homem">Homem</option>
+                                        <option value="Mulher">Mulher</option>
+                                        <option value="Casal - Ele / Ela">Casal - Ele / Ela</option>
+                                        <option value="Casal - Ele / Ele">Casal - Ele / Ele</option>
+                                        <option value="Casal - Ela / Ela">Casal - Ela / Ela</option>
+                                        <option value="Transex">Transex</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="procuro">Procuro/Procuramos</label>
+                                    <select class="selectpicker" data-width="100%" data-selected-text-format="count > 3"
+                                        title="Procuro / Procuramos" multiple name="preferencia[]" id="procuro">
+                                        <option value="Homem">Homem</option>
+                                        <option value="Mulher">Mulher</option>
+                                        <option value="Casal - Ele / Ela">Casal - Ele / Ela</option>
+                                        <option value="Casal - Ele / Ele">Casal - Ele / Ele</option>
+                                        <option value="Casal - Ela / Ela">Casal - Ela / Ela</option>
+                                        <option value="Transex">Transex</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input id="email" type="text" class="form-control" name="email"
+                                        placeholder="E-mail">
+                                    <cite id="email-status"></cite>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="senha">Senha</label>
+                                    <input id="senha" type="password" class="form-control" name="senha"
+                                        placeholder="Senha">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" name="termos[]" id="contrato"
+                                            class="custom-control-input">
+                                        <label for="contrato" class="custom-control-label">Aceito os <a href="">Termos
+                                                de Uso</a> e <a href="">Política de Privacidade</a></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <button type="submit" class="btn btn-primary btn-block" id="registrar"
+                                        name="registrar">
+                                        Registrar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(function() {
+            setTimeout(function() {
+                $('#flash').fadeOut('slow');
+            }, 2000);
+
+            $('#senha').keyup(function() {
+                var $th = $(this);
+                $th.val($th.val().replace(/[^a-zA-Z0-9]/g, function() {
+                    return '';
+                }));
+            });
+
+            $('#email').blur(function() {
+                var email = $(this).val();
+                if (email.length === 0) {
+                    $('#email-status').html('<cite class="text-danger">Preencha o campo<cite>');
+                    $('#registrar').attr('disabled', false);
+                } else {
+                    $.ajax({
+                        url: '/checkuser',
+                        method: 'POST',
+                        data: {
+                            login: email
+                        },
+                        success: function(data) {
+                            if (data !== '0') {
+                                $('#email-status').html('<cite class="text-danger">Já existe alguém usando esse email<cite>');
+                                $('#registrar').attr('disabled', true);
+                            } else {
+                                $('#email-status').html('<cite><cite>');
+                                $('#registrar').attr('disabled', false);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+{% endblock %}

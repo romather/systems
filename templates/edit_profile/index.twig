@@ -1,0 +1,414 @@
+<?php require_once __DIR__ . '/../boot/setup.php'; ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="romather">
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <meta name="csrf-token" content="<?= CSRF::setToken() ?>">
+        <meta http-equiv="Content-Security-Policy" content="<?= $csp ?>">
+        <title>Editar Perfil</title>
+        <script src="<?= Url::base_url(TRUE) . 'resources/js/jquery.min.js' ?>"></script>
+        <script src="<?= Url::base_url(TRUE) . 'resources/bootstrap/js/bootstrap.bundle.min.js' ?>"></script>
+        <script src="<?= Url::base_url(TRUE) . 'resources/parsley.js/parsley.min.js' ?>"></script>
+        <script src="<?= Url::base_url(TRUE) . 'resources/parsley.js/i18n/pt-br.js' ?>"></script>
+        <script src="<?= Url::base_url(TRUE) . 'resources/bootstrap-select/js/bootstrap-select.min.js' ?>"></script>
+        <script src="<?= Url::base_url(TRUE) . 'resources/bootstrap-select/js/i18n/defaults-pt_BR.js' ?>"></script>
+        <link rel="stylesheet" href="<?= Url::base_url(TRUE) . 'resources/bootstrap/css/bootstrap.min.css' ?>">
+        <link rel="stylesheet" href="<?= Url::base_url(TRUE) . 'resources/bootstrap-select/css/bootstrap-select.min.css' ?>">
+        <link rel="stylesheet" href="<?= Url::base_url(TRUE) . 'resources/parsley.js/parsley.css' ?>">
+        <link rel="stylesheet" href="<?= Url::base_url(TRUE) . 'resources/fontawesome-free/css/all.min.css' ?>">
+        <link rel="stylesheet" href="<?= Url::base_url(TRUE) . 'resources/css/edit.css' ?>">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #4267b2;">
+            <a class="navbar-brand" href="social">
+                <img src="" class="d-inline-block align-top" alt="">
+                Swee
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="social"><?php Perfil() ?></a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">
+                            Rede
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="social">
+                            Página Inicial
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">
+                            Encontrar Amigos
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">
+                            <i class="fas fa-user-friends"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">
+                            <i class="fab fa-facebook-messenger"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">
+                            <i class="fas fa-1x fa-cog"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="">
+                                <i class="fas fa-user-edit"></i>
+                                Editar Perfil
+                            </a>
+                            <a class="dropdown-item" href="">
+                                <i class="fas fa-network-wired"></i>
+                                Rede
+                            </a>
+                            <a class="dropdown-item" href="reset">
+                                <i class="fas fa-lock-open"></i>
+                                Esqueceu a Senha
+                            </a>
+                            <a class="dropdown-item" href="delete_profile">
+                                <i class="fas fa-user-minus"></i>
+                                Deletar Conta
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="">
+                                <i class="fas fa-cogs"></i>
+                                Configurações
+                            </a>
+                            <a class="dropdown-item" href="logout?token=<?= Session::get('user_token') ?>">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <br><br><br>
+
+        <div class="container">
+            <div class="row flex-lg-nowrap">
+                <div class="col-12 col-lg-auto mb-3" style="width: 210px;">
+                    <div class="card p-3">
+                        <div class="e-navlist e-navlist--active-bg">
+                            <ul class="nav">
+                                <li class="nav-item"><a class="nav-link px-2 active" href="edit_profile" style="font-size: 16px;"><i class="fas fa-chart-bar mr-1"></i><span>Perfil Básico</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="edit_profile_advanced" style="font-size: 16px;"><i class="fas fa-th mr-1"></i><span>Perfil Avançado</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="config" style="font-size: 16px;"><i class="fas fa-cog mr-1"></i><span>Configuração</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="e-profile">
+                                        <form method="post" enctype="multipart/form-data" data-parsley-validate="" name="upForm" id="upForm">
+                                            <?= CSRF::generateToken() ?>
+                                            <input name="check_1" type="hidden" value="">
+                                            <input style="position: absolute; width: 1px; top: -5000px; left: -5000px;" name="check_2" type="text">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-auto mb-3">
+                                                    <div class="mx-auto" style="width: 140px;">
+                                                        <div class="d-flex justify-content-center align-items-center rounded" style="height: 150px; background-color: rgb(233, 236, 239);">
+                                                            <img src="<?= Url::base_url(TRUE) . 'img/padrao.png' ?>" id="imgFoto" class="imgFoto" name="imgFoto" alt="Foto Perfil" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                        <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php Perfil(); ?></h4>
+                                                        <p class="mb-0"><small><?php TipoPerfil(); ?></small></p>
+                                                        <div class="text-muted"><small><?php TempoAtivo(); ?></small></div>
+                                                        <div class="mt-2">
+                                                            <input type="file" name="imgPerfil" id="imgPerfil" accept="image/jpeg,image/jpg,image/png,image/gif">
+                                                            <label for="imgPerfil">Escolher Imagem</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center text-sm-right">
+                                                        <span class="badge badge-secondary"><?php TipoUsuario() ?></span>
+                                                        <div class="text-muted"><small>Entrou em <?php DataEntrada(); ?></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item"><a href="" id="edit" class="active nav-link">SEUS DADOS BÁSICOS</a></li>
+                                            </ul>
+
+                                            <div class="tab-content pt-3">
+                                                <div class="tab-pane active">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div id="flash" class="flash">
+                                                                        <?php
+                                                                        if (isset($saida)) {
+                                                                            echo $saida;
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="sou">Sou</label>
+                                                                        <select class="selectpicker" data-width="100%" title="Sou / Somos" name="opcao" id="sou">
+                                                                            <option value="Homem">Homem</option>
+                                                                            <option value="Mulher">Mulher</option>
+                                                                            <option value="Casal - Ele / Ela">Casal - Ele / Ela</option>
+                                                                            <option value="Casal - Ele / Ele">Casal - Ele / Ele</option>
+                                                                            <option value="Casal - Ela / Ela">Casal - Ela / Ela</option>
+                                                                            <option value="Transex">Transex</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="procuro">Procuro</label>
+                                                                        <select class="selectpicker" data-width="100%" data-selected-text-format="count > 3" title="Procuro / Procuramos" multiple name="preferencia[]" id="procuro">
+                                                                            <option value="Homem">Homem</option>
+                                                                            <option value="Mulher">Mulher</option>
+                                                                            <option value="Casal - Ele / Ela">Casal - Ele / Ela</option>
+                                                                            <option value="Casal - Ele / Ele">Casal - Ele / Ele</option>
+                                                                            <option value="Casal - Ela / Ela">Casal - Ela / Ela</option>
+                                                                            <option value="Transex">Transex</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Nome que será usado dentro do site</label>
+                                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="John Smith">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Estado Civil</label>
+                                                                        <select class="selectpicker" name="civil" id="civil" data-width="100%" title="Estado Civil">
+                                                                            <option value="Solteiro">Solteiro</option>
+                                                                            <option value="Casado">Casado</option>
+                                                                            <option value="Divorciado">Divorciado</option>
+                                                                            <option value="Noivo">Noivo</option>
+                                                                            <option value="Namorando">Namorando</option>
+                                                                            <option value="Outros">Outros</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>E-mail</label>
+                                                                        <input class="form-control" type="email" name="email" id="email" placeholder="user@example.com">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Cidade</label>
+                                                                        <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Estado (UF)</label>
+                                                                        <select class="selectpicker" name="estado" id="estado" data-width="100%" title="Estado" data-live-search="true">
+                                                                            <option value="Acre">Acre</option>
+                                                                            <option value="Alagoas">Alagoas</option>
+                                                                            <option value="Amapá">Amapá</option>
+                                                                            <option value="Amazonas">Amazonas</option>
+                                                                            <option value="Bahia">Bahia</option>
+                                                                            <option value="Ceará">Ceará</option>
+                                                                            <option value="Distrito Federal">Distrito Federal</option>
+                                                                            <option value="Espírito Santo">Espírito Santo</option>
+                                                                            <option value="Goiás">Goiás</option>
+                                                                            <option value="Maranhão">Maranhão</option>
+                                                                            <option value="Mato Grosso">Mato Grosso</option>
+                                                                            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                                                                            <option value="Minas Gerais">Minas Gerais</option>
+                                                                            <option value="Pará">Pará</option>
+                                                                            <option value="Paraíba">Paraíba</option>
+                                                                            <option value="Paraná">Paraná</option>
+                                                                            <option value="Pernambuco">Pernambuco</option>
+                                                                            <option value="Piauí">Piauí</option>
+                                                                            <option value="Rio de Janeiro">Rio de Janeiro</option>
+                                                                            <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                                                                            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                                                                            <option value="Rondônia">Rondônia</option>
+                                                                            <option value="Roraima">Roraima</option>
+                                                                            <option value="Santa Catarina">Santa Catarina</option>
+                                                                            <option value="São Paulo">São Paulo</option>
+                                                                            <option value="Sergipe">Sergipe</option>
+                                                                            <option value="Tocantins">Tocantins</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <div class="form-group">
+                                                                        <label>Utilize este espaço para falar sobre você(s)</label>
+                                                                        <textarea class="form-control" name="biografia" id="biografia" rows="5" placeholder="Fale sobre você(s)"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <div class="form-group">
+                                                                        <label>Utilize este espaço para descrever o perfil dos parceiros sexuais que você(s) está(ão) procurando</label>
+                                                                        <textarea class="form-control" name="buscas" id="buscas" rows="5" placeholder="Descreva o perfil dos parceiros que está(ão) procurando"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 mb-3">
+                                                            <div class="mb-2"><b>Mudar Senha</b></div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Nova senha (mínimo de 6 caracteres)</label>
+                                                                        <input class="form-control" name="senha" id="senha" type="password" placeholder="Nova Senha">
+                                                                        <small>Se não quiser uma nova senha, não preencha este campo</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col d-flex justify-content-end">
+                                                            <button class="btn btn-primary" type="submit" name="atualizar" id="atualizar">Atualizar perfil</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3 mb-3">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="px-xl-3">
+                                        <a class="btn btn-block btn-secondary" href="logout?token=<?= Session::get('user_token') ?>">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                setTimeout(function () {
+                    $('#flash').fadeOut('slow');
+                }, 2000);
+
+                var p = $("#imgFoto");
+                $("body").on("change", "#imgPerfil", function () {
+                    var imageReader = new FileReader();
+                    imageReader.readAsDataURL(document.getElementById("imgPerfil").files[0]);
+                    imageReader.onload = function (oFREvent) {
+                        p.attr('src', oFREvent.target.result).fadeIn();
+                    };
+                });
+
+                $('.imgFoto').each(function () {
+                    var maxWidth = 150; // Max width for the image
+                    var maxHeight = 150; // Max height for the image
+                    var ratio = 0; // Used for aspect ratio
+                    var width = $(this).width(); // Current image width
+                    var height = $(this).height(); // Current image height
+
+                    // Check if the current width is larger than the max
+                    if (width > maxWidth) {
+                        ratio = maxWidth / width; // get ratio for scaling image
+                        $(this).css("width", maxWidth); // Set new width
+                        $(this).css("height", height * ratio); // Scale height based on ratio
+                        height = height * ratio; // Reset height to match scaled image
+                    }
+
+                    var width = $(this).width(); // Current image width
+                    var height = $(this).height(); // Current image height
+
+                    // Check if current height is larger than max
+                    if (height > maxHeight) {
+                        ratio = maxHeight / height; // get ratio for scaling image
+                        $(this).css("height", maxHeight); // Set new height
+                        $(this).css("width", width * ratio); // Scale width based on ratio
+                        width = width * ratio; // Reset width to match scaled image
+                    }
+                });
+
+                $('#nome').keyup(function () {
+                    var $th = $(this);
+                    $th.val($th.val().replace(/[^a-zA-Z\s.]/g, function () {
+                        return '';
+                    }));
+                });
+
+                $('#cidade').keyup(function () {
+                    var $th = $(this);
+                    $th.val($th.val().replace(/[^a-zA-Z\s]/g, function () {
+                        return '';
+                    }));
+                });
+
+                $('#senha').keyup(function () {
+                    var $th = $(this);
+                    $th.val($th.val().replace(/[^a-zA-Z0-9#.,]/g, function () {
+                        return '';
+                    }));
+                });
+
+                $('#email').keyup(function () {
+                    var $th = $(this);
+                    $th.val($th.val().replace(/[^a-zA-Z0-9@._-]/g, function () {
+                        return '';
+                    }));
+                });
+            });
+        </script>
+    </body>
+</html>

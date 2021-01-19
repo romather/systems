@@ -1,0 +1,67 @@
+{% extends "sign.twig" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+<body class="my-login-page">
+    {% include "nav.twig" %}
+    <br><br><br><br>
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="card fat">
+                        <div class="card-body">
+                            <h4 class="card-title">Login</h4>                          
+                            <form method="post" action="" class="form-horizontal" data-parsley-validate="">
+                                <input name="check_1" type="hidden" value="">
+                                <input style="position: absolute; width: 1px; top: -5000px; left: -5000px;"
+                                    name="check_2" type="text">
+                                <div class="form-group">
+                                    <label for="login">E-Mail / Nome de Usuário</label>
+                                    <input id="login" type="text" class="form-control" name="login"
+                                        placeholder="E-mail ou Nome de Usuário">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="senha">Senha
+                                        <a href="reset" class="float-right">
+                                            Esqueceu a senha?
+                                        </a>
+                                    </label>
+                                    <input id="senha" type="password" class="form-control" name="senha"
+                                        placeholder="Senha">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" name="rememberme" id="rememberme"
+                                            class="custom-control-input">
+                                        <label for="rememberme" class="custom-control-label">Lembrar-me neste
+                                            dispositivo</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <button type="submit" name="entrar" id="entrar" class="btn btn-primary btn-block">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $(function() {
+            setTimeout(function() {
+                $('#flash').fadeOut('slow');
+            }, 2000);
+        });
+    </script>
+</body>
+{% endblock %}
